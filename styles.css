@@ -160,6 +160,41 @@ h1 {
   background: #f6d36f;
 }
 
+.cell.word-break-left {
+  box-shadow: inset 3px 0 0 var(--ink);
+}
+
+.cell.word-break-right {
+  box-shadow: inset -3px 0 0 var(--ink);
+}
+
+.cell.word-break-top {
+  box-shadow: inset 0 3px 0 var(--ink);
+}
+
+.cell.word-break-bottom {
+  box-shadow: inset 0 -3px 0 var(--ink);
+}
+
+.cell.in-entry.word-break-left,
+.cell.in-entry.word-break-right,
+.cell.in-entry.word-break-top,
+.cell.in-entry.word-break-bottom,
+.cell.active.word-break-left,
+.cell.active.word-break-right,
+.cell.active.word-break-top,
+.cell.active.word-break-bottom,
+.cell.correct.word-break-left,
+.cell.correct.word-break-right,
+.cell.correct.word-break-top,
+.cell.correct.word-break-bottom,
+.cell.wrong.word-break-left,
+.cell.wrong.word-break-right,
+.cell.wrong.word-break-top,
+.cell.wrong.word-break-bottom {
+  background-image: linear-gradient(transparent, transparent);
+}
+
 .active-clue {
   min-height: 58px;
   margin: 10px 0;

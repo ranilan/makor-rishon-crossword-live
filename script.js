@@ -20,6 +20,7 @@ const keyOf = ([row, col]) => `${row},${col}`;
 
 async function boot() {
   state.puzzle = await fetch("puzzles/2026-07-03.json").then((res) => res.json());
+  prepareWordBreaks();
   state.values = JSON.parse(localStorage.getItem(storageKey) || "{}");
   renderBoard();
   renderClues();
@@ -62,6 +63,60 @@ function renderBoard() {
       }
 
       boardEl.append(cell);
+    });
+  });
+  applyWordBreaks();
+}
+
+function prepareWordBreaks() {
+  ["across", "down"].forEach((direction) => {
+    state.puzzle.entries[direction].forEach((entry) => {
+      entry.wordBreaks = getWordBreaks(entry.clue, entry.cells.length);
+    });
+  });
+}
+
+function getWordBreaks(clue, length) {
+  const match = clue.match(/\(([\d,\s]+)\)\s*$/);
+  if (!match || !match[1].includes(",")) return [];
+  const visualParts = match[1]
+    .split(",")
+    .map((part) => Number(part.trim()))
+    .filter((part) => Number.isFinite(part) && part > 0);
+  if (visualParts.length < 2) return [];
+  const logicalParts = [...visualParts].reverse();
+  const total = logicalParts.reduce((sum, part) => sum + part, 0);
+  if (total !== length) return [];
+  const breaks = [];
+  logicalParts.slice(0, -1).reduce((sum, part) => {
+    const next = sum + part;
+    breaks.push(next);
+    return next;
+  }, 0);
+  return breaks;
+}
+
+function applyWordBreaks() {
+  document.querySelectorAll(".word-break-left,.word-break-right,.word-break-top,.word-break-bottom").forEach((cell) => {
+    cell.classList.remove("word-break-left", "word-break-right", "word-break-top", "word-break-bottom");
+  });
+  ["across", "down"].forEach((direction) => {
+    state.puzzle.entries[direction].forEach((entry) => {
+      entry.wordBreaks?.forEach((breakIndex) => {
+        const before = entry.cells[breakIndex - 1];
+        const after = entry.cells[breakIndex];
+        if (!before || !after) return;
+        const beforeEl = document.querySelector(`[data-cell="${keyOf(before)}"]`);
+        const afterEl = document.querySelector(`[data-cell="${keyOf(after)}"]`);
+        if (!beforeEl || !afterEl) return;
+        if (direction === "across") {
+          beforeEl.classList.add(after[1] < before[1] ? "word-break-left" : "word-break-right");
+          afterEl.classList.add(after[1] < before[1] ? "word-break-right" : "word-break-left");
+        } else {
+          beforeEl.classList.add(after[0] > before[0] ? "word-break-bottom" : "word-break-top");
+          afterEl.classList.add(after[0] > before[0] ? "word-break-top" : "word-break-bottom");
+        }
+      });
     });
   });
 }
