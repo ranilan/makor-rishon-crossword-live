@@ -317,7 +317,7 @@ h1 {
   .keyboard-open .board-panel {
     direction: ltr;
     display: grid;
-    grid-template-columns: minmax(0, 330px) 48px;
+    grid-template-columns: minmax(0, 346px) 50px;
     grid-template-areas:
       "board tools"
       "clue clue";
@@ -332,7 +332,7 @@ h1 {
   }
 
   .keyboard-open .board {
-    width: min(100%, calc(var(--vvh) - 126px), 324px);
+    width: min(100%, calc(var(--vvh) - 126px), 340px);
     min-width: 0;
   }
 
@@ -353,7 +353,7 @@ h1 {
   }
 
   .keyboard-open .toolbar button {
-    min-height: 31px;
+    min-height: 33px;
     padding: 0;
     font-size: 0;
     line-height: 1;
@@ -361,7 +361,7 @@ h1 {
 
   .keyboard-open .toolbar button::before {
     content: attr(data-compact);
-    font-size: 1.16rem;
+    font-size: 1.22rem;
     font-weight: 900;
   }
 
