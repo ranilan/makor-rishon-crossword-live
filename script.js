@@ -14,6 +14,7 @@ const dirToggle = document.querySelector("#dir-toggle");
 const feedbackEl = document.querySelector("#feedback");
 const storageKey = "makor-rishon-dekel-beno-2026-07-03";
 const finalLetters = { ם: "מ", ן: "נ", ף: "פ", ץ: "צ", ך: "כ" };
+let compactLocked = false;
 
 const keyOf = ([row, col]) => `${row},${col}`;
 
@@ -104,6 +105,7 @@ function wireControls() {
   document.querySelector("#clear-entry").addEventListener("click", clearEntry);
   document.querySelector("#check-entry").addEventListener("click", checkEntry);
   document.querySelector("#check-all").addEventListener("click", checkAll);
+  document.querySelector("#full-view").addEventListener("click", leaveCompactView);
 
   const dialog = document.querySelector("#source-dialog");
   document.querySelector("#toggle-source").addEventListener("click", () => dialog.showModal());
@@ -281,7 +283,8 @@ function setupKeyboardViewport() {
     const visualHeight = window.visualViewport?.height || window.innerHeight;
     root.style.setProperty("--vvh", `${visualHeight}px`);
     const cellFocused = document.activeElement?.matches(".cell input");
-    const keyboardOpen = window.innerWidth <= 760 && cellFocused;
+    if (cellFocused) compactLocked = true;
+    const keyboardOpen = window.innerWidth <= 760 && (cellFocused || compactLocked);
     document.body.classList.toggle("keyboard-open", keyboardOpen);
   };
   update();
@@ -289,6 +292,12 @@ function setupKeyboardViewport() {
   window.addEventListener("resize", update);
   document.addEventListener("focusin", update);
   document.addEventListener("focusout", () => window.setTimeout(update, 80));
+}
+
+function leaveCompactView() {
+  compactLocked = false;
+  document.activeElement?.blur();
+  document.body.classList.remove("keyboard-open");
 }
 
 function moveWithinEntry(delta) {
@@ -320,6 +329,7 @@ function clearEntry() {
 function focusCell(row, col) {
   const input = document.querySelector(`[data-cell="${row},${col}"] input`);
   if (!input) return;
+  compactLocked = true;
   state.activeCell = [row, col];
   input.focus({ preventScroll: true });
   highlight();
