@@ -1,0 +1,10 @@
+{
+  "name": "תשבץ מקור ראשון",
+  "short_name": "תשבץ",
+  "start_url": ".",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "he",
+  "background_color": "#f6f1e5",
+  "theme_color": "#f6f1e5"
+}
