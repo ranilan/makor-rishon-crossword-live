@@ -48,6 +48,10 @@ function renderBoard() {
         input.inputMode = "text";
         input.maxLength = 1;
         input.autocomplete = "off";
+        input.autocapitalize = "off";
+        input.spellcheck = false;
+        input.setAttribute("autocorrect", "off");
+        input.setAttribute("enterkeyhint", "next");
         input.value = state.values[id] || "";
         input.setAttribute("aria-label", `שורה ${rowIndex + 1}, עמודה ${colIndex + 1}`);
         input.addEventListener("focus", () => handleCellFocus(rowIndex, colIndex));
@@ -88,6 +92,7 @@ function wireControls() {
   dirToggle.addEventListener("click", () => {
     state.direction = state.direction === "across" ? "down" : "across";
     dirToggle.textContent = state.direction === "across" ? "מאוזן" : "מאונך";
+    dirToggle.dataset.compact = state.direction === "across" ? "↔" : "↕";
     if (state.activeCell) {
       const entry = entryForCell(state.activeCell, state.direction);
       if (entry) selectEntry(state.direction, entry.number, state.activeCell);
@@ -147,6 +152,7 @@ function selectEntry(direction, number, activeCell) {
   state.activeEntry = state.puzzle.entries[direction].find((entry) => entry.number === number);
   state.activeCell = activeCell;
   dirToggle.textContent = direction === "across" ? "מאוזן" : "מאונך";
+  dirToggle.dataset.compact = direction === "across" ? "↔" : "↕";
   activeClueEl.textContent = `${direction === "across" ? "מאוזן" : "מאונך"} ${state.activeEntry.number}. ${state.activeEntry.clue}`;
   setFeedback("");
   highlight();

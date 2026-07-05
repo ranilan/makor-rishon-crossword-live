@@ -316,7 +316,7 @@ h1 {
 
   .keyboard-open .board-panel {
     display: grid;
-    grid-template-columns: minmax(0, 282px) 78px;
+    grid-template-columns: minmax(0, 300px) 64px;
     grid-template-areas:
       "board tools"
       "clue clue";
@@ -331,7 +331,7 @@ h1 {
   }
 
   .keyboard-open .board {
-    width: min(100%, calc(var(--vvh) - 132px), 270px);
+    width: min(100%, calc(var(--vvh) - 136px), 288px);
     min-width: 0;
   }
 
@@ -346,18 +346,21 @@ h1 {
 
   .keyboard-open .toolbar {
     grid-area: tools;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 6px;
-  }
-
-  .keyboard-open .toolbar button:nth-child(n+4) {
-    display: none;
   }
 
   .keyboard-open .toolbar button {
     min-height: 38px;
-    padding-inline: 4px;
-    font-size: 0.84rem;
+    padding: 0;
+    font-size: 0;
+    line-height: 1;
+  }
+
+  .keyboard-open .toolbar button::before {
+    content: attr(data-compact);
+    font-size: 1.15rem;
+    font-weight: 900;
   }
 
   .keyboard-open .feedback,
