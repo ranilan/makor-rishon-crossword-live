@@ -315,12 +315,13 @@ h1 {
   }
 
   .keyboard-open .board-panel {
+    direction: ltr;
     display: grid;
-    grid-template-columns: minmax(0, 300px) 64px;
+    grid-template-columns: minmax(0, 306px) 44px;
     grid-template-areas:
       "board tools"
       "clue clue";
-    justify-content: end;
+    justify-content: start;
     align-items: start;
     gap: 6px 8px;
   }
@@ -331,12 +332,13 @@ h1 {
   }
 
   .keyboard-open .board {
-    width: min(100%, calc(var(--vvh) - 136px), 288px);
+    width: min(100%, calc(var(--vvh) - 126px), 300px);
     min-width: 0;
   }
 
   .keyboard-open .active-clue {
     grid-area: clue;
+    direction: rtl;
     min-height: 0;
     margin: 0;
     padding: 7px 9px;
@@ -346,12 +348,12 @@ h1 {
 
   .keyboard-open .toolbar {
     grid-area: tools;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .keyboard-open .toolbar button {
-    min-height: 38px;
+    min-height: 32px;
     padding: 0;
     font-size: 0;
     line-height: 1;
@@ -359,7 +361,7 @@ h1 {
 
   .keyboard-open .toolbar button::before {
     content: attr(data-compact);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 900;
   }
 

@@ -265,7 +265,7 @@ async function sharePuzzle() {
   const shareData = {
     title: state.puzzle.title,
     text: "תשבץ היגיון מקור ראשון",
-    url: location.href
+    url: location.href.split("?")[0]
   };
   if (navigator.share) {
     await navigator.share(shareData).catch(() => {});
