@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f6f1e5">
     <title>תשבץ מקור ראשון</title>
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=compact-7">
+    <link rel="stylesheet" href="styles.css?v=2026-07-10">
   </head>
   <body>
     <main class="app-shell">
@@ -55,8 +55,8 @@
         <strong>המקור</strong>
         <form method="dialog"><button type="submit">סגור</button></form>
       </div>
-      <img src="assets/makor-rishon-dekel-beno-2026-07-03.jpg" alt="תמונת התשבץ המקורית">
-      <a href="assets/makor-rishon-dekel-beno-2026-07-03.pdf">פתיחת PDF</a>
+      <img id="source-image" src="assets/makor-rishon-dekel-beno-2026-07-10.jpg" alt="תמונת התשבץ המקורית">
+      <a id="source-link" href="assets/makor-rishon-dekel-beno-2026-07-10.jpg">פתיחת תמונה</a>
     </dialog>
 
     <dialog id="archive-dialog" class="source-dialog">
@@ -64,11 +64,12 @@
         <strong>ארכיון</strong>
         <form method="dialog"><button type="submit">סגור</button></form>
       </div>
-      <div class="archive-list">
-        <a href="./">03/07/2026 · מקור ראשון · דקל בנו</a>
+      <div class="archive-list" id="archive-list">
+        <a href="./">10/07/2026 · מקור ראשון · דקל בנו</a>
+        <a href="./?date=2026-07-03">03/07/2026 · מקור ראשון · דקל בנו</a>
       </div>
     </dialog>
 
-    <script src="script.js?v=compact-7"></script>
+    <script src="script.js?v=2026-07-10"></script>
   </body>
 </html>

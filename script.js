@@ -12,20 +12,48 @@ const cluesEl = document.querySelector("#clues");
 const activeClueEl = document.querySelector("#active-clue");
 const dirToggle = document.querySelector("#dir-toggle");
 const feedbackEl = document.querySelector("#feedback");
-const storageKey = "makor-rishon-dekel-beno-2026-07-03";
+const puzzles = [
+  { date: "2026-07-10", label: "10/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-10.json" },
+  { date: "2026-07-03", label: "03/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-03.json" }
+];
+let storageKey = "";
 const finalLetters = { ם: "מ", ן: "נ", ף: "פ", ץ: "צ", ך: "כ" };
 let compactLocked = false;
 
 const keyOf = ([row, col]) => `${row},${col}`;
 
 async function boot() {
-  state.puzzle = await fetch("puzzles/2026-07-03.json").then((res) => res.json());
+  const requestedDate = new URLSearchParams(window.location.search).get("date");
+  const selected = puzzles.find((puzzle) => puzzle.date === requestedDate) || puzzles[0];
+  state.puzzle = await fetch(selected.file).then((res) => res.json());
+  storageKey = state.puzzle.id;
   prepareWordBreaks();
   state.values = JSON.parse(localStorage.getItem(storageKey) || "{}");
   renderBoard();
   renderClues();
+  renderPuzzleMeta();
+  renderArchive();
   wireControls();
   selectEntry("across", 1, [0, 10]);
+}
+
+function renderPuzzleMeta() {
+  const sourceImage = document.querySelector("#source-image");
+  const sourceLink = document.querySelector("#source-link");
+  sourceImage.src = state.puzzle.imageUrl;
+  sourceLink.href = state.puzzle.pdfUrl || state.puzzle.imageUrl;
+  sourceLink.textContent = state.puzzle.pdfUrl ? "פתיחת PDF" : "פתיחת תמונה";
+}
+
+function renderArchive() {
+  const archiveList = document.querySelector("#archive-list");
+  archiveList.innerHTML = "";
+  puzzles.forEach((puzzle, index) => {
+    const link = document.createElement("a");
+    link.href = index === 0 ? "./" : `./?date=${puzzle.date}`;
+    link.textContent = puzzle.label;
+    archiveList.append(link);
+  });
 }
 
 function renderBoard() {
