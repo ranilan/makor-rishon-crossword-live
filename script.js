@@ -13,6 +13,7 @@ const activeClueEl = document.querySelector("#active-clue");
 const dirToggle = document.querySelector("#dir-toggle");
 const feedbackEl = document.querySelector("#feedback");
 const puzzles = [
+  { date: "2026-07-31", label: "31/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-31.json" },
   { date: "2026-07-24", label: "24/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-24.json" },
   { date: "2026-07-17", label: "17/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-17.json" },
   { date: "2026-07-10", label: "10/07/2026 · מקור ראשון · דקל בנו", file: "puzzles/2026-07-10.json" },
